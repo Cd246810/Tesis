@@ -1423,8 +1423,8 @@ MonoBehaviour:
   Scroll: {fileID: 932922706}
   PanelPractica: {fileID: 1056164575}
   PanelUsuario: {fileID: 1379713620}
-  BotonPractica: {fileID: 733805410}
-  BotonUsuario: {fileID: 181337479}
+  BotonPractica: {fileID: 733805412}
+  BotonUsuario: {fileID: 181337481}
   SpriteUsuarioActivo: {fileID: 21300000, guid: e9cbedc0a86fa49dc97aff9466db4807,
     type: 3}
   SpriteUsuarioInactivo: {fileID: 21300000, guid: be45814beed734bff9506dcf1b9a066f,
