@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+guid: 8090e9639c0754a099b89186fb98e4d0
+timeCreated: 1508139593
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: SF Pro Text
+  fontNames:
+  - SF Pro Text
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 30109b61f93944449bfeb727611b8682, type: 3}
+  - {fileID: 12800000, guid: 748427e5ae7ee44ccb298a7b5d5477d1, type: 3}
+  - {fileID: 12800000, guid: 66f23289256574b32b45714c7308c57b, type: 3}
+  - {fileID: 12800000, guid: 5939e9ea22eca41ccb7ddc31c7cbb774, type: 3}
+  - {fileID: 12800000, guid: 45cb2bdf4b928468a829aa42297409c7, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
