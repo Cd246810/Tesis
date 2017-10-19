@@ -11,7 +11,7 @@ public class BarreraMenuPrincipal : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		//Debug.Log ("Aqui vamos con el objeto: "+other.gameObject.name);
-		CodigoMenuPrincipal.MenuEscogido = other.gameObject.name;
+		//CodigoMenuPrincipal.MenuEscogido = other.gameObject.name;
 	}
 
 	// Update is called once per frame

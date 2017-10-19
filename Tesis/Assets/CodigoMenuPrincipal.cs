@@ -8,32 +8,52 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 	public GameObject PanelActividad;
 	List<GameObject> Actividades;
 	public GameObject canvas;
-	int Actual=0;
+	public ScrollRect Scroll;
 	int CantidadOpciones=4;
+	public GameObject PanelPractica;
+	public GameObject PanelUsuario;
+	public Button BotonPractica;
+	public Button BotonUsuario;
 
-	public static string MenuEscogido="Actividad0";
+	bool Practica=true;
+	bool Usuario=false;
 
-	private Vector2 startPos;
-	private Vector2 endPos;
-	private Vector2 prevPos;
-	private Vector2 touchPos;
-	private Rigidbody rb;
-	private Touch touch;
-	private int Estado; //0 en posicion, 1 se esta moviendo, 2 regresar a posicion
+	public static int NumeroEscogido=0;
+	public static string NombreMenuEscogido="Actividad0";
+
+	public Sprite SpriteUsuarioActivo;
+	public Sprite SpriteUsuarioInactivo;
+	public Sprite SpritePracticaActivo;
+	public Sprite SpritePracticaInactivo;
+
+	public RectTransform PuntoCentro;
+	float[] Distancia;
+	private bool Dragging=false;
+	float DistanciaCentro;
+	int DistanciaBotones=695;
+
+	float DistanciaAnterior=0f;
+
+	float DistanciaActual=0f;
+
 
 	// Use this for initialization
 	void Start () {
-
-		Debug.Log ("x= "+PanelActividad.transform.position.x+"\ty= "+PanelActividad.transform.position.y);
+		
+		Debug.Log ("x= "+canvas.transform.position.x+"\ty= "+canvas.transform.position.y);
 		Actividades = new List<GameObject> ();
 		Actividades.Add (PanelActividad);
+		Distancia=new float[CantidadOpciones];
+		Distancia[0] = Mathf.Abs(PuntoCentro.transform.position.x - PanelActividad.transform.position.x);
+		DistanciaCentro = PuntoCentro.transform.position.x - canvas.transform.position.x;
 		for(int x=1;x<CantidadOpciones;x++){
 			GameObject Actividad = Instantiate(PanelActividad) as GameObject;
 			Actividad.transform.SetParent(canvas.transform, false);
 			Actividad.name = "Actividad"+x;
-			Actividad.transform.position = new Vector3(PanelActividad.transform.position.x+(694.9f*x), PanelActividad.transform.position.y, PanelActividad.transform.position.z);
+			Actividad.transform.position = new Vector3(PanelActividad.transform.position.x+(684.9f*x), PanelActividad.transform.position.y, PanelActividad.transform.position.z);
 			Text[] Textos=Actividad.GetComponentsInChildren<Text>();
 			Textos[0].text = "Intermedio";
+			Distancia[x]=Mathf.Abs(PuntoCentro.transform.position.x - Actividad.transform.position.x);
 			Actividades.Add (Actividad);
 		}
 	}
@@ -41,77 +61,70 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+
 	}
 
 	void FixedUpdate ()
 	{  
-		if (Input.touchCount > 0)
-		{
-			Touch touch = Input.GetTouch(0);
-
-			if (touch.phase == TouchPhase.Began)
-			{
-				startPos = touch.position;
-				prevPos =touch.position;
-				Estado = 1;
-			}
-			//Ver velocidad tambien :/
-			if (touch.phase == TouchPhase.Moved && touch.phase != TouchPhase.Stationary)
-			{
-				endPos=touch.position;
-				//if(Mathf.Abs(endPos.x)>(Mathf.Abs(startPos.x)+30) || Mathf.Abs(endPos.x)<(Mathf.Abs(startPos.x) - 30)){//Arreglar esto
-					MoverDistancia (endPos.x-prevPos.x);
-				//}
-				//MoverDistancia (endPos.x-prevPos.x);
-				prevPos = touch.position;
-			}
-			if (touch.phase == TouchPhase.Ended) {
-				if (startPos == endPos) { //Darle +-20 pixeles
-					Variables.EjercicioActual = MenuEscogido;
-					Debug.Log ("Se selecciono la actividad: " + Variables.EjercicioActual);
-					//Estado = 0;
-				} else {
-					//Estado = 2;
-				}
-				Estado = 2;
+		for(int x=0;x<CantidadOpciones;x++){
+			Distancia [x] = Mathf.Abs(PuntoCentro.transform.position.x - Actividades[x].transform.position.x);
+		}
+		float DistanciaMinima = Mathf.Min (Distancia);
+		for(int x=0;x<CantidadOpciones;x++){
+			if(DistanciaMinima==Distancia[x]){
+				NumeroEscogido = x;
 			}
 		}
-		if(Estado==2){
-			float Mover=Offset (MenuEscogido);
-			if (Mover < 0.2f) {
-				MoverLocacion (-30);
-			} else if (Mover > 81.2) {
-				MoverLocacion (30);
-			} else {
-				MoverLocacion (Mover);
-				Estado = 0;
-			}
+		if(!Dragging){
+			//Debug.Log (Scroll.velocity);
+			if (Mathf.Abs (Scroll.velocity.x) < 600f) {
+				//Debug.Log ("Velocidad minima");
+				Scroll.velocity = new Vector2 (0f, 0f);
 
-			//MoverLocacion (Mover);
-			//Estado = 0;
+				MoverDistancia (-(684.9f) * NumeroEscogido);
+			}
 		}
+	}
+
+	public void StartDrag(){
+		Dragging = true;
+		//dragging = 1;
+		//DistanciaAnterior = 0f;
+		//DistanciaActual =0f;
+	}
+	public void StopDrag(){
+		Debug.Log ("Se detuvo");
+		//Debug.Log (Scroll.velocity);
+		//Debug.Log ("x= "+canvas.transform.position.x+"\ty= "+canvas.transform.position.y);
+		Dragging = false;
+		//dragging = 2;
+		//Debug.Log (NumeroEscogido);
 	}
 
 	void MoverDistancia(float Movimiento){
-		for(int x=0;x<CantidadOpciones;x++){
-			Actividades[x].transform.position = new Vector3(Actividades[x].transform.position.x+Movimiento, Actividades[x].transform.position.y, Actividades[x].transform.position.z);
+		float PosicionX = Mathf.Lerp (canvas.GetComponent<RectTransform>().anchoredPosition.x,Movimiento,Time.deltaTime*5f);
+		canvas.GetComponent<RectTransform>().anchoredPosition=new Vector2(PosicionX,canvas.GetComponent<RectTransform>().anchoredPosition.y);
+	}
+
+	public void Usuario_OnClick(){
+		if (Usuario == false) {
+			PanelUsuario.SetActive(true);
+			BotonUsuario.image.overrideSprite = SpriteUsuarioActivo;
+			PanelPractica.SetActive(false);
+			BotonPractica.image.overrideSprite = SpritePracticaInactivo;
+			Usuario = true;
+			Practica = false;
 		}
 	}
 
-	float Offset(string Locacion){
-		float Mover = 0f;
-		for (int x = 0; x < CantidadOpciones; x++) {
-			if(Actividades[x].name.Equals(Locacion)){
-				Mover = Actividades [x].transform.position.x - 41.2f - Mover;
-			}
-		}
-		return Mover;
-	}
-
-	void MoverLocacion(float Mover){
-		
-		for(int x=0;x<CantidadOpciones;x++){
-			Actividades[x].transform.position = new Vector3(Actividades[x].transform.position.x-Mover, Actividades[x].transform.position.y, Actividades[x].transform.position.z);
+	public void Practica_OnClick(){
+		if (Practica == false) {
+			PanelPractica.SetActive(true);
+			BotonPractica.image.overrideSprite = SpritePracticaActivo;
+			PanelUsuario.SetActive(false);
+			BotonUsuario.image.overrideSprite = SpriteUsuarioInactivo;
+			Practica = true;
+			Usuario = false;
 		}
 	}
 		
