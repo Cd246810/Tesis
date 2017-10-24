@@ -52,6 +52,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BarreraMenuPrincipal.cs" />
+     <Compile Include="Assets\CodigoInstrucciones.cs" />
      <Compile Include="Assets\CodigoMenuPrincipal.cs" />
      <Compile Include="Assets\Variables.cs" />
  <Reference Include="UnityEngine.UI">

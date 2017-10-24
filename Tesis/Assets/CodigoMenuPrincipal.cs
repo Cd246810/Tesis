@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CodigoMenuPrincipal : MonoBehaviour {
 
@@ -126,6 +127,11 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 			Practica = true;
 			Usuario = false;
 		}
+	}
+
+	public void TecnicaClick(){
+		Variables.Var.EjercicioActual=NumeroEscogido;
+		SceneManager.LoadScene("Instrucciones");
 	}
 		
 }

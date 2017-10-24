@@ -296,7 +296,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "B\xE1sico"
+  m_Text: Tutorial
 --- !u!222 &543866422
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -670,7 +670,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 792964854}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1605512744}
+        m_MethodName: TecnicaClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &792964854
@@ -1004,6 +1015,47 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 938992150}
+--- !u!1 &956424454
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 956424455}
+  - component: {fileID: 956424456}
+  m_Layer: 0
+  m_Name: GameVariables
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &956424455
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 956424454}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 375, y: 667, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &956424456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 956424454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f693556c5174229a8f6dc087667846, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EjercicioActual: 0
 --- !u!1 &1056164575
 GameObject:
   m_ObjectHideFlags: 0
@@ -1329,7 +1381,6 @@ GameObject:
   - component: {fileID: 1605512740}
   - component: {fileID: 1605512739}
   - component: {fileID: 1605512744}
-  - component: {fileID: 1605512745}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1434,17 +1485,6 @@ MonoBehaviour:
   SpritePracticaInactivo: {fileID: 21300000, guid: 243a3115a0fa24438a97e72ff0355860,
     type: 3}
   PuntoCentro: {fileID: 1367862510}
---- !u!114 &1605512745
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1605512738}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f693556c5174229a8f6dc087667846, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1792748733
 GameObject:
   m_ObjectHideFlags: 0
