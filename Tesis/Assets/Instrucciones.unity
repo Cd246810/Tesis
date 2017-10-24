@@ -726,6 +726,7 @@ MonoBehaviour:
   canvas: {fileID: 567706628}
   Scroll: {fileID: 514974881}
   PuntoCentro: {fileID: 716522603}
+  NombreTecnica: {fileID: 982125669}
 --- !u!81 &795433365
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1128,6 +1129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EjercicioActual: 0
+  NombreListaEjercicios: []
+  TipoListaEjercicios: []
 --- !u!4 &1710407342
 Transform:
   m_ObjectHideFlags: 0

@@ -11,8 +11,6 @@ public class CodigoInstrucciones : MonoBehaviour {
 	public GameObject canvas;
 	public ScrollRect Scroll;
 	int CantidadOpciones=4;
-	bool Practica=true;
-	bool Usuario=false;
 
 	public static int NumeroEscogido=0;
 	public static string NombreMenuEscogido;
@@ -27,8 +25,11 @@ public class CodigoInstrucciones : MonoBehaviour {
 
 	float DistanciaActual=0f;
 
+	public Text NombreTecnica;
+
 	// Use this for initialization
 	void Start () {
+		NombreTecnica.text=Variables.Var.NombreListaEjercicios[Variables.Var.EjercicioActual];
 		Pasos = new List<GameObject> ();
 		Pasos.Add (PanelPaso);
 		Distancia=new float[CantidadOpciones];

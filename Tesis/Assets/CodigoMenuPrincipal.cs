@@ -44,6 +44,7 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 		Debug.Log ("x= "+canvas.transform.position.x+"\ty= "+canvas.transform.position.y);
 		Actividades = new List<GameObject> ();
 		Actividades.Add (PanelActividad);
+		CantidadOpciones=Variables.Var.NombreListaEjercicios.Count;
 		Distancia=new float[CantidadOpciones];
 		Distancia[0] = Mathf.Abs(PuntoCentro.transform.position.x - PanelActividad.transform.position.x);
 		DistanciaCentro = PuntoCentro.transform.position.x - canvas.transform.position.x;
@@ -53,7 +54,9 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 			Actividad.name = "Actividad"+x;
 			Actividad.transform.position = new Vector3(PanelActividad.transform.position.x+(684.9f*x), PanelActividad.transform.position.y, PanelActividad.transform.position.z);
 			Text[] Textos=Actividad.GetComponentsInChildren<Text>();
-			Textos[0].text = "Intermedio";
+			//Textos[0].text = "Intermedio";
+			Textos[0].text = Variables.Var.TipoListaEjercicios[x];
+			Textos[1].text = Variables.Var.NombreListaEjercicios[x];
 			Distancia[x]=Mathf.Abs(PuntoCentro.transform.position.x - Actividad.transform.position.x);
 			Actividades.Add (Actividad);
 		}
