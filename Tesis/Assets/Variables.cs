@@ -22,6 +22,5 @@ public class Variables : MonoBehaviour{
 		}else if(Var!=this){
 			Destroy(gameObject);
 		}
-		
 	}
 }
