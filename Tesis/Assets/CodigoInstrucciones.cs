@@ -19,7 +19,7 @@ public class CodigoInstrucciones : MonoBehaviour {
 	float[] Distancia;
 	private bool Dragging=false;
 	float DistanciaCentro;
-	int DistanciaBotones=460;
+	float DistanciaBotones;
 
 	float DistanciaAnterior=0f;
 
@@ -29,6 +29,13 @@ public class CodigoInstrucciones : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		RectTransform rt = (RectTransform)PanelPaso.transform;
+
+		DistanciaBotones=rt.rect.width/1.63f;
+
+		Debug.Log("Tamanño actual: "+DistanciaBotones);
+
 		NombreTecnica.text=Variables.Var.NombreListaEjercicios[Variables.Var.EjercicioActual];
 		Pasos = new List<GameObject> ();
 		Pasos.Add (PanelPaso);
@@ -39,7 +46,8 @@ public class CodigoInstrucciones : MonoBehaviour {
 			GameObject Paso = Instantiate(PanelPaso) as GameObject;
 			Paso.transform.SetParent(canvas.transform, false);
 			Paso.name = "Paso"+x;
-			Paso.transform.position = new Vector3(PanelPaso.transform.position.x+(460f*x), PanelPaso.transform.position.y, PanelPaso.transform.position.z);
+			//Paso.transform.position = new Vector3(PanelPaso.transform.position.x+(460f*x), PanelPaso.transform.position.y, PanelPaso.transform.position.z);
+			Paso.transform.position = new Vector3(PanelPaso.transform.position.x+(DistanciaBotones*x), PanelPaso.transform.position.y, PanelPaso.transform.position.z);
 			Text[] Textos=Paso.GetComponentsInChildren<Text>();
 			Textos[0].text = "Intermedio";
 			Distancia[x]=Mathf.Abs(PuntoCentro.transform.position.x - Paso.transform.position.x);
@@ -54,5 +62,17 @@ public class CodigoInstrucciones : MonoBehaviour {
 
 	public void Regresar(){
 		SceneManager.LoadScene("MenuPrincipal");
+	}
+	public void Escenario5(){
+		Variables.Var.Minutos=5;
+		SceneManager.LoadScene("Escenario");
+	}
+	public void Escenario10(){
+		Variables.Var.Minutos=10;
+		SceneManager.LoadScene("Escenario");
+	}
+	public void Escenario15(){
+		Variables.Var.Minutos=15;
+		SceneManager.LoadScene("Escenario");
 	}
 }

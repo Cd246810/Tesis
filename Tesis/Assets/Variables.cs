@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Facebook.Unity;
+using UnityEngine.UI;
 
 public class Variables : MonoBehaviour{
 	public static Variables Var;
 	public int EjercicioActual;
 	public List<string> NombreListaEjercicios;
 	public List<string> TipoListaEjercicios;
+	public int Minutos=0;
 	void Awake(){
 		if(Var==null){
 			DontDestroyOnLoad(gameObject);
