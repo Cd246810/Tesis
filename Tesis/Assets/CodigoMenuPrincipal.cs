@@ -104,7 +104,7 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 			//Debug.Log (Scroll.velocity);
 			if (Mathf.Abs (Scroll.velocity.x) < 600f) {
 				//Debug.Log ("Velocidad minima");
-			//	Scroll.velocity = new Vector2 (0f, 0f);
+				Scroll.velocity = new Vector2 (0f, 0f);
 				MoverDistancia (-(DistanciaBotones) * NumeroEscogido);
 				//MoverDistancia (-(684.9f) * NumeroEscogido);
 			}
@@ -127,7 +127,7 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 	}
 
 	void MoverDistancia(float Movimiento){
-		float PosicionX = Mathf.Lerp (canvas.GetComponent<RectTransform>().anchoredPosition.x,Movimiento,Time.deltaTime*5f);
+		float PosicionX = Mathf.Lerp (canvas.GetComponent<RectTransform>().anchoredPosition.x,Movimiento,Time.deltaTime*20f);
 		canvas.GetComponent<RectTransform>().anchoredPosition=new Vector2(PosicionX,canvas.GetComponent<RectTransform>().anchoredPosition.y);
 	}
 
@@ -164,7 +164,7 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 		if(Iniciado==false){
 			var perms = new List<string>(){"public_profile", "email", "user_friends"};
 			FB.LogInWithReadPermissions(perms, AuthCallback);
-			FB.LogInWithPublishPermissions(new List<string>() { "publish_actions" }, this.AuthCallback);
+			//FB.LogInWithPublishPermissions(new List<string>() { "publish_actions" }, this.AuthCallback);
 			Iniciado=true;
 		}else{
 			Iniciado=false;
@@ -311,7 +311,9 @@ public class CodigoMenuPrincipal : MonoBehaviour {
     // UserInfo.NAME = parsedData.first_name;
     // UserInfo.FACEBOOKID = parsedData.id;
 
-             /*problem area, if I comment line below, then previous information is apparently not stored. If left as is then testTxt displays correct information but code gets stuck there.  */
+    /*
+	problem area, if I comment line below, then previous information is apparently not stored. If left as is then testTxt displays correct information but code gets stuck there. 
+	*/
     // testTxt.text = "This is the info from USerInfoInside the APICallback: " + UserInfo.EMAIL + UserInfo.FRIENDS + UserInfo.FACEBOOKID;
  }
 }
