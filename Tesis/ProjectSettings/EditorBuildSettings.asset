@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Instrucciones.unity
     guid: f4f0109f108404c4ba621ac597968685
-  - enabled: 1
+  - enabled: 0
     path: Assets/Escenario.unity
     guid: 8b9bc68394c55400dbada264b185ac8d
+  - enabled: 1
+    path: Assets/Escenario1.unity
+    guid: 2f70ca3b740cf470e85be072deee3a74

@@ -47,7 +47,8 @@ public class CodigoEscenario : MonoBehaviour {
 		//Time.time=Tiempo inicio del frame, segundos desde que inicio el juego.
 		//Debug.Log(Time.time);
 		float phi = Time.time / 10f * 2 * Mathf.PI;
-        float amplitude = Mathf.Cos(phi) * 100.0F + 50.0F; //Jugar con estos valores para marcar el ritmo
+        //float amplitude = Mathf.Cos(phi) * 100.0F + 50.0F; //Jugar con estos valores para marcar el ritmo
+		float amplitude = Mathf.Cos(phi) * 65.0F + 75.0F;
 		//Debug.Log(amplitude);
         LuzInternaL1.intensity = amplitude;
 

@@ -65,14 +65,14 @@ public class CodigoInstrucciones : MonoBehaviour {
 	}
 	public void Escenario5(){
 		Variables.Var.Minutos=5;
-		SceneManager.LoadScene("Escenario");
+		SceneManager.LoadScene("Escenario1");
 	}
 	public void Escenario10(){
 		Variables.Var.Minutos=10;
-		SceneManager.LoadScene("Escenario");
+		SceneManager.LoadScene("Escenario1");
 	}
 	public void Escenario15(){
 		Variables.Var.Minutos=15;
-		SceneManager.LoadScene("Escenario");
+		SceneManager.LoadScene("Escenario1");
 	}
 }
