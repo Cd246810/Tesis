@@ -57,44 +57,23 @@
      <Compile Include="Assets\Standard Assets\Editor\Water\Water4\SpecularLightingEditor.cs" />
      <Compile Include="Assets\Standard Assets\Editor\Water\Water4\WaterBaseEditor.cs" />
      <Compile Include="Assets\Standard Assets\Editor\Water\Water4\WaterEditorUtility.cs" />
-     <None Include="Assets\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
-     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasic.shader" />
-     <None Include="Assets\Standard Assets\Prototyping\Shaders\WorldCoordDiffuse.shader" />
      <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
+     <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver_v1.2.54.0.txt" />
      <None Include="Assets\HolyShift\readme.txt" />
-     <None Include="Assets\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularSmooth.shader" />
-     <None Include="Assets\Standard Assets\Effects\Projectors\Guidelines.txt" />
-     <None Include="Assets\Standard Assets\Effects\ImageEffects\Readme.txt" />
-     <None Include="Assets\Standard Assets\Vehicles\Car\Shaders\DiffuseReflectiveShader.shader" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
      <None Include="Assets\HolyShift\Shaders\WaterInclude.cginc" />
-     <None Include="Assets\Standard Assets\Vehicles\Aircraft\AircraftGuidelines.txt" />
-     <None Include="Assets\Standard Assets\Vehicles\Car\Shaders\ReflectiveDiffuseSpecTransp.shader" />
-     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
-     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAlpha.shader" />
-     <None Include="Assets\Standard Assets\Vehicles\Car\Shaders\ReflectiveDiffuseSpec.shader" />
-     <None Include="Assets\Standard Assets\ParticleSystems\ParticleSystemsGuidelines.txt" />
+     <None Include="Assets\Plugins\Android\OneSignalConfig\AndroidManifestTemplate.xml" />
+     <None Include="Assets\Plugins\Android\OneSignalConfig\README.txt" />
      <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
      <None Include="Assets\Standard Assets\Fonts\OpenSans\License!.txt" />
      <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />
-     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAddSoft.shader" />
-     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
-     <None Include="Assets\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
-     <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorLight.shader" />
      <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
-     <None Include="Assets\PlayServicesResolver\Editor\play-services-resolver.txt" />
      <None Include="Assets\FacebookSDK\link.xml" />
-     <None Include="Assets\Standard Assets\Vehicles\Car\CarGuidelines.txt" />
-     <None Include="Assets\Standard Assets\Effects\Projectors\Shaders\ProjectorMultiply.shader" />
      <None Include="Assets\Standard Assets\Characters\ThirdPersonCharacter\ThirdPersonCharacterGuidelines.txt" />
-     <None Include="Assets\Standard Assets\Cameras\CameraGuidelines.txt" />
      <None Include="Assets\Standard Assets\Characters\FirstPersonCharacter\FirstPersonCharacterGuidelines.txt" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
      <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
      <None Include="Assets\Standard Assets\Characters\RollerBall\RollerBallGuidelines.txt" />
-     <None Include="Assets\Standard Assets\ParticleSystems\Shaders\PriorityParticleAdd.shader" />
-     <None Include="Assets\Standard Assets\Effects\TessellationShaders\Shaders\BumpedSpecularDisplacement.shader" />
-     <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
      <None Include="Assets\HolyShift\Shaders\FXWaterLowpoly.shader" />
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -174,17 +153,23 @@
  <Reference Include="Facebook.Unity.Settings">
  <HintPath>/Users/christianescobar/Documents/GitHub/Tesis/Tesis/Assets/FacebookSDK/Plugins/Settings/Facebook.Unity.Settings.dll</HintPath>
  </Reference>
- <Reference Include="Google.IOSResolver">
- <HintPath>/Users/christianescobar/Documents/GitHub/Tesis/Tesis/Assets/PlayServicesResolver/Editor/Google.IOSResolver.dll</HintPath>
+ <Reference Include="OneSignalSDK_WP80">
+ <HintPath>/Users/christianescobar/Documents/GitHub/Tesis/Tesis/Assets/OneSignal/Platforms/OneSignalSDK_WP80.dll</HintPath>
  </Reference>
- <Reference Include="Google.JarResolver">
- <HintPath>/Users/christianescobar/Documents/GitHub/Tesis/Tesis/Assets/PlayServicesResolver/Editor/Google.JarResolver.dll</HintPath>
+ <Reference Include="OneSignalSDK_WP_WNS">
+ <HintPath>/Users/christianescobar/Documents/GitHub/Tesis/Tesis/Assets/OneSignal/Platforms/OneSignalSDK_WP_WNS.dll</HintPath>
  </Reference>
- <Reference Include="Google.PackageManager">
- <HintPath>/Users/christianescobar/Documents/GitHub/Tesis/Tesis/Assets/PlayServicesResolver/Editor/Google.PackageManager.dll</HintPath>
+ <Reference Include="Google.IOSResolver_v1.2.54.0">
+ <HintPath>/Users/christianescobar/Documents/GitHub/Tesis/Tesis/Assets/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.54.0.dll</HintPath>
+ </Reference>
+ <Reference Include="Google.JarResolver_v1.2.54.0">
+ <HintPath>/Users/christianescobar/Documents/GitHub/Tesis/Tesis/Assets/PlayServicesResolver/Editor/Google.JarResolver_v1.2.54.0.dll</HintPath>
  </Reference>
  <Reference Include="Google.VersionHandler">
  <HintPath>/Users/christianescobar/Documents/GitHub/Tesis/Tesis/Assets/PlayServicesResolver/Editor/Google.VersionHandler.dll</HintPath>
+ </Reference>
+ <Reference Include="Google.VersionHandlerImpl_v1.2.54.0">
+ <HintPath>/Users/christianescobar/Documents/GitHub/Tesis/Tesis/Assets/PlayServicesResolver/Editor/Google.VersionHandlerImpl_v1.2.54.0.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>

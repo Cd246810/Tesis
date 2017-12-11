@@ -15,9 +15,9 @@ MonoBehaviour:
   clientTokens:
   - 
   appIds:
-  - 1982529792002883
+  - 152828502005716
   appLabels:
-  - App Name
+  - Respira
   cookie: 1
   logging: 1
   status: 1

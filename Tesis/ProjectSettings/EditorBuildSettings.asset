@@ -11,9 +11,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Instrucciones.unity
     guid: f4f0109f108404c4ba621ac597968685
+  - enabled: 1
+    path: Assets/Temporizador.unity
+    guid: 31052e06fc1784025919238e105f6511
   - enabled: 0
     path: Assets/Escenario.unity
     guid: 8b9bc68394c55400dbada264b185ac8d
   - enabled: 1
     path: Assets/Escenario1.unity
     guid: 2f70ca3b740cf470e85be072deee3a74
+  - enabled: 1
+    path: Assets/Desbloqueable.unity
+    guid: d8741aa8c75bd470284d882f495ab05c
+  - enabled: 1
+    path: Assets/Experiencia.unity
+    guid: 26df4b1e9af7b4878806af13800224e1

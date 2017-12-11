@@ -35,8 +35,8 @@ public class CodigoInstrucciones : MonoBehaviour {
 		DistanciaBotones=rt.rect.width/1.63f;
 
 		Debug.Log("Tamanño actual: "+DistanciaBotones);
-
-		NombreTecnica.text=Variables.Var.NombreListaEjercicios[Variables.Var.EjercicioActual];
+		NombreTecnica.text=Variables.Var.ejercicios[Variables.Var.EjercicioActual].getNombre();
+		//NombreTecnica.text=Variables.Var.NombreListaEjercicios[Variables.Var.EjercicioActual];
 		Pasos = new List<GameObject> ();
 		Pasos.Add (PanelPaso);
 		Distancia=new float[CantidadOpciones];
@@ -63,16 +63,7 @@ public class CodigoInstrucciones : MonoBehaviour {
 	public void Regresar(){
 		SceneManager.LoadScene("MenuPrincipal");
 	}
-	public void Escenario5(){
-		Variables.Var.Minutos=5;
-		SceneManager.LoadScene("Escenario1");
-	}
-	public void Escenario10(){
-		Variables.Var.Minutos=10;
-		SceneManager.LoadScene("Escenario1");
-	}
-	public void Escenario15(){
-		Variables.Var.Minutos=15;
-		SceneManager.LoadScene("Escenario1");
+	public void Seleccionar(){
+		SceneManager.LoadScene("Temporizador");
 	}
 }
