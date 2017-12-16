@@ -1,14 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Facebook.Unity;
 using UnityEngine.SceneManagement;
 
 public class CodigoDesbloqueable : MonoBehaviour {
 	public GameObject PanelIniciar;
+	public Image objetoDesbloqueado;
 	// Use this for initialization
 	void Start () {
 		PanelIniciar.SetActive(false);
+		for(int x=0;x<Variables.Var.objetos.Count;x++){
+			if(Variables.Var.objetos[x].nivelNecesario==Variables.Var.niveles[0]){
+				objetoDesbloqueado.sprite=Resources.Load<Sprite>(Variables.Var.objetos[x].pathDesBloqueado);
+			}
+		}
+		Variables.Var.niveles.RemoveAt(0);
 	}
 	
 	// Update is called once per frame
@@ -81,7 +89,11 @@ public class CodigoDesbloqueable : MonoBehaviour {
     }
 
 	public void Finalizar(){
-		SceneManager.LoadScene("MenuPrincipal");
+		if(Variables.Var.niveles.Count>0){
+			SceneManager.LoadScene("Desbloqueable");
+		}else{
+			SceneManager.LoadScene("MenuPrincipal");
+		}
 	}
 
 	public void Cancelar(){

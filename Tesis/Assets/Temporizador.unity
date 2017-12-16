@@ -175,7 +175,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 10 minutos
+  m_Text: 3 minutos
 --- !u!222 &47003501
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1203,7 +1203,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EjercicioActual: 0
-  Minutos: 0
+  configuracionMinutoEjercicio: 0
+  duracionSegundoEjercicio: 0
+  racha: []
+  diasRacha: 0
+  nivel: 0
+  experiencia: 0
+  niveles: 
+  PersonalizacionOpcion: 0
 --- !u!4 &1710407342
 Transform:
   m_ObjectHideFlags: 0
@@ -1284,7 +1291,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 15 minutos
+  m_Text: 5 minutos
 --- !u!222 &1780990562
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1670,7 +1677,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 5 minutos
+  m_Text: 1 minuto
 --- !u!222 &1988812611
 CanvasRenderer:
   m_ObjectHideFlags: 0

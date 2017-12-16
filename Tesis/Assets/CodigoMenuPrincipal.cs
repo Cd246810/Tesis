@@ -15,6 +15,8 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 	int CantidadOpciones=4;
 	public GameObject PanelPractica;
 
+	//Panel de personalizacion
+	public GameObject PanelPersonalizacion;
 
 	//Panel De usaurio
 	public GameObject PanelUsuario;
@@ -46,7 +48,6 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 
 	public Sprite blank;
 
-
 	public Text Nombre;
 	public GameObject DialogProfilePic;
 	public Text TextoBoton;
@@ -56,6 +57,14 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 	public Text[] textoRacha;
 	public GameObject[] rachaPositva;
 	public GameObject[] rachaNegativa;
+
+	//Objetos necesarios para representar las estadisticas del usuario
+	public RectTransform barraExperiencia;
+	public Text nivel;
+	public Text ejercicioFavorito;
+
+	public Text PruebaRacha;
+	string StringPruebaRacha="";
 
 	void Start () {
 		//Obtengo las fechas almacenadas de los dias en los cuales el usuario a ingresado.
@@ -69,7 +78,9 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 
 		//Ultima fecha registrada del usuario en formato String
 		string stringUltimaSesion= Variables.Var.racha[Variables.Var.racha.Length-1];
+		Debug.Log("Ultima sesion almacenada del usuario: "+ stringUltimaSesion);
 		if(stringUltimaSesion==""){
+			Debug.Log("No hay fecha almacenada.");
 			//Como no se ha almacenado ninguna fecha previamente, se guarda el dia actual como el ultimo valor de la lista
 			Variables.Var.racha[Variables.Var.racha.Length-1]=""+ahora;
 		}else{
@@ -83,36 +94,50 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 					}else{
 						Variables.Var.racha[x]="";
 					}
-					//Variables.Var.racha[x]=PlayerPrefs.GetString("dia"+x);
 				}
 				Variables.Var.racha[Variables.Var.racha.Length-1]=""+ahora;
 			}
 		}
 		
+		int diasRacha=0;
 		for (int x=0;x<Variables.Var.racha.Length;x++){
 			//Se despliega la informacion
 			if(Variables.Var.racha[x].Equals("")){
+				diasRacha=0;
 				rachaPositva[x].SetActive(false);
 				rachaNegativa[x].SetActive(true);
 			}else{
+				diasRacha++;
 				rachaPositva[x].SetActive(true);
 				rachaNegativa[x].SetActive(false);
 			}
 			System.DateTime diaRacha=ahora.AddDays(-1*(Variables.Var.racha.Length-x-1));
 			textoRacha[x].text=diaRacha.Day+"/"+diaRacha.Month;
 			//Se guarda el arreglo en el Prefab
+			StringPruebaRacha=StringPruebaRacha+" - "+Variables.Var.racha[x];
 			PlayerPrefs.SetString("dia"+x,Variables.Var.racha[x]);
 		}
-
+		PruebaRacha.text=StringPruebaRacha;
 		//Se obtiene el nivel y la cantidad de experiencia actual del usuario
+		Variables.Var.diasRacha=diasRacha;
+		//Variables.Var.nivel=PlayerPrefs.GetInt("nivel");
+		//Variables.Var.experiencia=PlayerPrefs.GetInt("experiencia");
+
+
+		//Obtener elementos para el panel de estadisticas
 		Variables.Var.nivel=PlayerPrefs.GetInt("nivel");
 		Variables.Var.experiencia=PlayerPrefs.GetInt("experiencia");
-
-
+		if(Variables.Var.nivel>9){
+			nivel.text="Maximo";
+			barraExperiencia.localScale=new Vector3(1F,1F,1F);
+		}else{
+			nivel.text=""+Variables.Var.nivel;
+			barraExperiencia.localScale=new Vector3(Variables.Var.calcularEscalaExperienciaActual((float)Variables.Var.experiencia, (float)Variables.Var.nivel),1F,1F);
+		}
 		//Debugger
 		Debug.Log("Fecha de hoy: " + ahora);
 		Debug.Log("Posicion de Ultima sesion almacenada del usuario: "+ (Variables.Var.racha.Length-1));
-		Debug.Log("Ultima sesion almacenada del usuario: "+ stringUltimaSesion);
+		
 		System.DateTime pruebaFecha= new System.DateTime(2017,12,7,23,10,11);
 		Debug.Log("Prueba de sesion: "+ pruebaFecha);
 		System.TimeSpan pruebaDias=ahora.Subtract(pruebaFecha);
@@ -156,7 +181,7 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 			Actividades.Add (Actividad);
 		}
 		Practica=false;
-		Practica_OnClick();
+		//Practica_OnClick();
 		if (!FB.IsInitialized) {
      	   		FB.Init(InitCallback, OnHideUnity);
   	  		} else {
@@ -181,8 +206,6 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 			BotonFB.GetComponent<Image>().color = new Color(0.85f,0.11f,0.34f,1f);
 			Iniciado=true;
 		}
-
-
 		OneSignal.StartInit("66f0dd94-acad-4252-a0e8-f708de54525a").HandleNotificationOpened(HandleNotificationOpened).EndInit();
   		OneSignal.inFocusDisplayType = OneSignal.OSInFocusDisplayOption.Notification;
 
@@ -262,13 +285,16 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 	}
 
 	public void Usuario_OnClick(){
-		if (Usuario == false) {
+		//if (Usuario == false) {
+			/* 
 			PanelUsuario.SetActive(true);
 			BotonUsuario.image.overrideSprite = SpriteUsuarioActivo;
 			PanelPractica.SetActive(false);
 			BotonPractica.image.overrideSprite = SpritePracticaInactivo;
+			PanelPersonalizacion.SetActive(false);
 			Usuario = true;
 			Practica = false;
+			*/
 			if(FB.IsLoggedIn){
 			var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
         	// Print current access token's User ID
@@ -288,18 +314,31 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 			BotonFB.GetComponent<Image>().color = new Color(0.85f,0.11f,0.34f,1f);
 			Iniciado=true;
 			}
-		}
+		//}
 	}
 
 	public void Practica_OnClick(){
-		if (Practica == false) {
+		//if (Practica == false) {
 			PanelPractica.SetActive(true);
 			BotonPractica.image.overrideSprite = SpritePracticaActivo;
 			PanelUsuario.SetActive(false);
 			BotonUsuario.image.overrideSprite = SpriteUsuarioInactivo;
-			Practica = true;
-			Usuario = false;
-		}
+			PanelPersonalizacion.SetActive(false);
+			//Practica = true;
+			//Usuario = false;
+		//}
+	}
+
+	public void Personalizacion_OnClick(){
+		//if (Practica == false) {
+			PanelPractica.SetActive(false);
+			BotonPractica.image.overrideSprite = SpritePracticaInactivo;
+			PanelUsuario.SetActive(false);
+			BotonUsuario.image.overrideSprite = SpriteUsuarioInactivo;
+			PanelPersonalizacion.SetActive(true);
+			//Practica = true;
+			//Usuario = false;
+		//}
 	}
 
 	public void TecnicaClick(){
@@ -321,15 +360,6 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 		}
 		
 	}
-/* 
-	private void CallFBLoginForPublish()
-	{
-
-	}
-	*/
-	//var perms = new List<string>(){"public_profile", "email", "user_friends"};
-	//FB.LogInWithReadPermissions(perms, AuthCallback);
-
 	private void AuthCallback (ILoginResult result) {
     	if (FB.IsLoggedIn) {
         	// AccessToken class will have session details
@@ -389,55 +419,10 @@ public class CodigoMenuPrincipal : MonoBehaviour {
 		TextoBoton.text="Iniciar sesión";
 		//ColorBlock cb = BotonFB.colors;
         //cb.normalColor = new Color(82/255,139/255,219/255,1);
-		BotonFB.GetComponent<Image>().color = new Color(0.32f,0.55f,0.86f,1f);
+		BotonFB.GetComponent<Image>().color = new Color(0.2588f,0.4039f,0.698f,1f);
 		Nombre.text="Usuario";
 		//BotonFB.GetComponent<Image>().color = Color.red;
 		//BotonFB.colors=cb;
-	}
-
-	public void BotonShare(){
-		/* 
-		FB.ShareLink(
-			new System.Uri("http://google.com"),
-			
-			callback: ShareCallback);
-			*/
-
-		/*
-		FB.FeedShare(
-			link: new System.Uri("http://usacseats.tk"),
-			linkName: "He desbloqueado un nuevo item en ZenBreath",
-			mediaSource: "https://upload.wikimedia.org/wikipedia/commons/4/4a/Usac_logo.png",
-			callback: ShareCallback
-		);
-		*/
-		
-		//quote: "He desbloqueado un nuevo item en ZenBreath",
-		var width = Screen.width;
-    	var height = Screen.height;
-    	var tex = new Texture2D(width, height, TextureFormat.RGB24, false);
-    // Read screen contents into the texture
-    	tex.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-    	tex.Apply();
-    	byte[] screenshot = tex.EncodeToPNG();
-
-    	var wwwForm = new WWWForm();
-    	wwwForm.AddBinaryData("image", screenshot, "Screenshot.png");
-
-    	FB.API("me/photos", HttpMethod.POST, Apicallback, wwwForm);
-		
-		/* 
-		FB.FeedShare (
-            string.Empty,
-            new System.Uri("http://linktoga.me"),
-            "Hello this is the title",
-            "This is the caption",
-            "Check out this game",
-            new System.Uri("https://i.ytimg.com/vi/NtgtMQwr3Ko/maxresdefault.jpg"),
-            string.Empty,
-            ShareCallback
-        );
-		*/
 	}
 
 

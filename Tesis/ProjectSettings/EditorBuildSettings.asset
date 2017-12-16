@@ -21,8 +21,8 @@ EditorBuildSettings:
     path: Assets/Escenario1.unity
     guid: 2f70ca3b740cf470e85be072deee3a74
   - enabled: 1
-    path: Assets/Desbloqueable.unity
-    guid: d8741aa8c75bd470284d882f495ab05c
-  - enabled: 1
     path: Assets/Experiencia.unity
     guid: 26df4b1e9af7b4878806af13800224e1
+  - enabled: 1
+    path: Assets/Desbloqueable.unity
+    guid: d8741aa8c75bd470284d882f495ab05c

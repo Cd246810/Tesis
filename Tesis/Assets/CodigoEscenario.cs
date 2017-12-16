@@ -25,6 +25,7 @@ public class CodigoEscenario : MonoBehaviour {
 	float TiempoFrecuencia=0f;
 	string CadenaTiempo="";
 	int Pixeles=0;
+	public GameObject Escenario;
 
 
 	//Temporales
@@ -35,30 +36,62 @@ public class CodigoEscenario : MonoBehaviour {
 	public GameObject PasuarFinalizar;
 	public GameObject PanelPausar;
 
-	//Luces
+	//Luces de la escena
 	public Light LuzInternaL1;
 	public Light Luz1;
 	public Light Luz2;
 
-	//Camara
+	//Camara del dispositivo
 	private bool camaraDisponible;
 	private WebCamTexture backCam;
-	//private Texture defaultBackground;
-	//public RawImage background; 
-	//public AspectRatioFitter fit;
 
+	//HeartBeat
+	public Text advertencia;
+	public Text beatMin;
+	int frameValido=0;
+	filtro filtro;
+	detectarPulso detectarPulso;
+	int INVALID_PULSE_PERIOD=-1;
+	int MIN_FRAMES_FOR_FILTER_TO_SETTLE=10;
 
-
+	//HSV
+	public float h;
+	public float s;
+	public float v;
+	
+	//Manejo de tiempo
+	private float segundosTranscurrido=0;
 
 	// Use this for initialization
 	void Start () {
 	//	
-		TiempoInicio=Time.time;
-		Minuto=Variables.Var.Minutos-1;
-		CambioMin=false;
-		TiempoFrecuencia=Minuto;
-		PanelPausar.SetActive(false);
+		int Temporal=0;
+		//Cargar escenario
+		int escenarioSeleccionado=PlayerPrefs.GetInt("escenario");
+		Debug.Log("Escenario seleccionado: "+escenarioSeleccionado);
+		for(int x=0;x<Variables.Var.objetos.Count;x++){
+			if(Variables.Var.objetos[x].tipo==0){
+				if(Temporal==escenarioSeleccionado){
+					Debug.Log("Posicion donde estan: "+x);
+					Debug.Log(Variables.Var.objetos[x].pathPrefab);
+					GameObject objetoEscenario=Instantiate(Resources.Load(Variables.Var.objetos[x].pathPrefab) as GameObject);
+					objetoEscenario.transform.SetParent(Escenario.transform, false);
+				}
+				Temporal++;
+			}
+		}
 
+
+		TiempoInicio=Time.time;
+		if(Variables.Var.configuracionMinutoEjercicio>1){
+			Minuto=Variables.Var.configuracionMinutoEjercicio-1;
+		}else{
+			Minuto=Variables.Var.configuracionMinutoEjercicio-1;
+		}
+		
+		CambioMin=false;
+		TiempoFrecuencia=Minuto+1;
+		PanelPausar.SetActive(false);
 
 		//Camara
 		//defaultBackground=background.texture;
@@ -78,10 +111,13 @@ public class CodigoEscenario : MonoBehaviour {
 				camaraDisponible=false;
 			}else{
 				HelloWorldString();
+				filtro=new filtro();
+				detectarPulso=new detectarPulso();
 				backCam.Play();
 				//background.texture=backCam;
 				camaraDisponible=true;
 			}
+			
 		}
 		
 	}
@@ -93,11 +129,15 @@ public class CodigoEscenario : MonoBehaviour {
 				PasuarFinalizar.SetActive(false);
 				TextoFinalizar.SetActive(true);
 				finalizado=true;
+				/*
 				FlashLightOff();
-				SceneManager.LoadScene("Desbloqueable");
+				Variables.Var.duracionSegundoEjercicio=(int)segundosTranscurrido;;
+				Debug.Log("Tiempo Transcurrido: "+Variables.Var.duracionSegundoEjercicio);
+				SceneManager.LoadScene("Experiencia");
+				*/
+				Terminar();
 			}
 		}else{
-
 			if(camaraDisponible){
 				//float ratio=(float)backCam.width/(float)backCam.height;
 				//fit.aspectRatio=ratio;
@@ -106,23 +146,51 @@ public class CodigoEscenario : MonoBehaviour {
 				//int orient=-backCam.videoRotationAngle;
 				//background.rectTransform.localEulerAngles=new Vector3(0,0, orient);
 				float Rojos=0f;
+				float Verdes=0f;
+				float Azules=0f;
 				Pixeles=0;
-				for (int Px=0; Px<backCam.width; Px=Px+100)
+				for (int Px=0; Px<backCam.width; Px=Px+50)
 				{
-					for(int Py=0; Py<backCam.height;Py=Py+100){
+					for(int Py=0; Py<backCam.height;Py=Py+50){
 						Pixeles++;
 						Rojos+=backCam.GetPixel(Px,Py).r;
+						Verdes+=backCam.GetPixel(Px,Py).g;
+						Azules+=backCam.GetPixel(Px,Py).b;
 					}
 				}
-				Debugger.text=Pixeles+" - "+Rojos/Pixeles;
+				Rojos/=Pixeles;
+				Verdes/=Pixeles;
+				Azules/=Pixeles;
+				RGBaHSV(Rojos,Verdes,Azules);
+				if(s>0.5 && v>0.5) {
+					advertencia.text="";
+					frameValido++;
+					float filtered=filtro.procesarValor(h);
+					if(frameValido>MIN_FRAMES_FOR_FILTER_TO_SETTLE){
+						detectarPulso.addNewValue(filtered,segundosTranscurrido);
+					}
+				}else{
+					frameValido=0;
+					detectarPulso.reiniciar();
+					advertencia.text="Coloque el dedo en la camara";
+				}
+				Debugger.text=Rojos+"-"+Verdes+"-"+Azules;
+				float avePeriod=detectarPulso.getAverage(segundosTranscurrido);
+    			if(avePeriod==INVALID_PULSE_PERIOD) {
+				} else {
+					float pulse=60.0f/avePeriod;
+       				beatMin.text=""+pulse;
+				}
 			}
-
 			timer += Time.deltaTime;
+
+
+			
+			segundosTranscurrido += Time.deltaTime;
+			//Debug.Log(segundosTranscurrido);
 			if(Segundo<0){
-			//if(CambioMin==false){
 				Minuto=Minuto-1;
 				CambioMin=true;
-			//}
 				timer=0.0f;
 			}
 			if(Segundo>9){
@@ -198,8 +266,12 @@ public class CodigoEscenario : MonoBehaviour {
 		Time.timeScale = 1;
 		//SceneManager.LoadScene("MenuPrincipal");
 		FlashLightOff();
-		SceneManager.LoadScene("Desbloqueable");
-		
+		Variables.Var.duracionSegundoEjercicio=(int)segundosTranscurrido;
+		//Debug.Log("Tiempo Transcurrido: "+Variables.Var.duracionSegundoEjercicio);
+		if(camaraDisponible){
+			backCam.Stop();
+		}
+		SceneManager.LoadScene("Experiencia");
 	}
 
 	public void Boton(){
@@ -292,6 +364,30 @@ private void Apicallback(IGraphResult result){
  }
 
 
+public void RGBaHSV(float r, float g, float b){
+	float min, max, delta;
+	min = System.Math.Min( r, System.Math.Min(g, b ));
+    max = System.Math.Max( r, System.Math.Max(g, b ));
+	v=max;
+	delta = max - min;
+	if( max != 0 )
+        s = delta / max;
+    else {
+        // r = g = b = 0
+        s = 0;
+        h = -1;
+        return;
+    }
+    if( r == max )
+        h = ( g - b ) / delta;
+    else if( g == max )
+        h=2+(b-r)/delta;
+    else
+        h=4+(r-g)/delta;
+    h = 60;
+    if( h < 0 )
+        h += 360;
+}
 
 
 #if UNITY_IPHONE

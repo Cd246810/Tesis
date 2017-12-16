@@ -23,7 +23,7 @@ public class CodigoTemporizador : MonoBehaviour {
 		NombreTecnica.text=Variables.Var.ejercicios[Variables.Var.EjercicioActual].getNombre();
 		//NombreTecnica.text=Variables.Var.NombreListaEjercicios[Variables.Var.EjercicioActual];	
 		Boton5M.GetComponent<Image>().color = Seleccionado;
-		Variables.Var.Minutos=5;
+		Variables.Var.configuracionMinutoEjercicio=1;
 	}
 	
 	// Update is called once per frame
@@ -38,21 +38,21 @@ public class CodigoTemporizador : MonoBehaviour {
 		Boton5M.GetComponent<Image>().color = Seleccionado;
 		Boton10M.GetComponent<Image>().color = NoSeleccionado;
 		Boton15M.GetComponent<Image>().color = NoSeleccionado;
-		Variables.Var.Minutos=5;
+		Variables.Var.configuracionMinutoEjercicio=1;
 		//SceneManager.LoadScene("Escenario1");
 	}
 	public void Escenario10(){
 		Boton5M.GetComponent<Image>().color = NoSeleccionado;
 		Boton10M.GetComponent<Image>().color = Seleccionado;
 		Boton15M.GetComponent<Image>().color = NoSeleccionado;
-		Variables.Var.Minutos=10;
+		Variables.Var.configuracionMinutoEjercicio=3;
 		//SceneManager.LoadScene("Escenario1");
 	}
 	public void Escenario15(){
 		Boton5M.GetComponent<Image>().color = NoSeleccionado;
 		Boton10M.GetComponent<Image>().color = NoSeleccionado;
 		Boton15M.GetComponent<Image>().color = Seleccionado;
-		Variables.Var.Minutos=15;
+		Variables.Var.configuracionMinutoEjercicio=5;
 		//SceneManager.LoadScene("Escenario1");
 	}
 
